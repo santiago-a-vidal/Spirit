@@ -53,7 +53,7 @@
 
 %%% The "real" document content comes below...
 
-\title{Milestones? Summary}
+\title{Patterns Summary}
 
 \date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -61,16 +61,53 @@
 \begin{document}
 \maketitle
 
-\section{Milestones}
+\section{Uni-Class Patterns}
 
+\subsection{Implemented}
 \begin{itemize}
-\item Dead Class: This milestone looks for all the classes that have not been changed for an X number of versions. Specifically, the milestones returns all the class versions in which this behavior occurs. For example, if a system has 10 versions and the class A was modified in versions 1, 4, and 10 the milestone will be true in the following versions whit X=3: 4, 7, 8, and 9.  
-\item Most Complex Classes: This milestones looks for all the versions of the classes in which a class was in the X\% of the most complex classes of a system. To calculate the complexity of a class the metric Weighted Method Count (WMC) is used.   
-\item Supernova: This milestone is related with the categorization proposed by Lanza. This milestone identifies those versions of a class in which it grows more than X\% regarding it previous version. 
+\item Dead Class: This uni-class pattern looks for all the classes that have not been changed for an X number of versions. Specifically, the uni-class pattern returns all the class versions in which this behavior occurs. For example, if a system has 10 versions and the class A was modified in versions 1, 4, and 10 the uni-class pattern will be true in the following versions whit X=3: 4, 7, 8, and 9.  
+\item Most Complex Classes: This uni-class pattern looks for all the versions of the classes in which a class was in the X\% of the most complex classes of a system. To calculate the complexity of a class the metric Weighted Method Count (WMC) is used.   
+\item Supernova: This uni-class pattern is related with the categorization proposed by Lanza. This milestone identifies those versions of a class in which it grows more than X\% regarding it previous version. 
 \end{itemize}
 
-%\subsection{A subsection}
+\subsection{Not Implemented}
+\begin{itemize}
+\item Ghost Methods: A method that was deleted in a version is added again in a posterior version.
+\item Duplicated Code: An index that measure the code duplication in a system increases a X\%  regarding it previous version.
+\item Complex method: A method that is in the X\% of the most complex methods of a system was added.
+\item Fan-In Indicator: A method has a fan-in higher than X.
+\item Dead Method: A method with fan-in=0.
+\item Empty Method: This uni-class pattern looks for all the methods that are defined empty. This may be because they were defined to be implemented in the future 
+\end{itemize}
 
-%More text.
+\section{Multi-Class Patterns}
+\subsection{The pattern algorithm}
+A multi-class pattern is composed by at least two uni-class patterns that occur in the same component. This occurrences can exist in the same or different versions. In order to determine the total number of versions considered to define a multi-class pattern, the pattern algorithm uses a threshold value where \emph{threshold>=0}. 
+Consider the model history of the components shown in Figure \ref{fig:exampleOfPatterns}. In this case the history of 6 components is shown where each of them has 7 versions. Also, in this case are used four uni-class patterns.  
+\begin{figure}
+  \centering
+    \includegraphics[bb=25bp 490bp 580bp 810bp,clip,scale=0.75]{patterns}
+  \caption{Pattern Example}
+  \label{fig:exampleOfPatterns}
+\end{figure}
 
+When the algorithm is run using the proposed model history, it will return as its output a set of multi-class pattern. For example if the algorithm is run with threshold=0, then all the pattern will be composed by uni-class patterns that occur in a same version. In this case the patterns obtained will be: 
+\begin{itemize}
+\item \{[Yellow, v2], [Green, v2], C1\}
+\item \{[Yellow, v7], [Green, v7], C2 \}
+\item \{[Red, v3], [Green, v3], [Blue, v3], C4\}
+\end{itemize}
+
+If the algorithm is executed with  threshold=1, the output will be the patterns found when the algorithm was run with threshold=0 plus:
+\begin{itemize}
+\item \{[Red, v1], [Yellow, v2], [Green, v2], C1\}
+\item \{[Blue, v5], [Green, v6], [Yellow, v7], [Green, v7], C2\}
+\end{itemize}
+
+Finally, if threshold=2, the returned patterns will be the same of threshold=0 and threshold=1 plus:
+\begin{itemize}
+\item \{[Red, v3], [Green, v3], [Blue, v3], [Yellow, v5], C4\}
+\end{itemize}
+
+\subsection{Identified Patterns}
 \end{document}
