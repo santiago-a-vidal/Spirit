@@ -5,8 +5,22 @@
 % See "book", "report", "letter" for other types of document.
 
 \documentclass[11pt]{article} % use larger type; default would be 10pt
-
+\usepackage{ifthen}
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+% packages
+\usepackage{xspace}
+\usepackage{ifthen}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{balance}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{microtype}
+\usepackage{bold-extra}
+\usepackage{subfigure}
+\usepackage{wrapfig}
 
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
@@ -38,6 +52,30 @@
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
 
+% proof-reading
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\newcommand{\ra}{$\rightarrow$}
+\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
+\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
+\newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+\newcommand{\chk}[1]{\textcolor{ForestGreen}{#1}} % changed, please check
+
+% comments \nb{label}{color}{text}
+\newboolean{showcomments}
+\setboolean{showcomments}{true}
+\ifthenelse{\boolean{showcomments}}
+	{\newcommand{\nb}[3]{
+		{\colorbox{#2}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+		{\textcolor{#2}{\sf\small$\blacktriangleright$\textit{#3}$\blacktriangleleft$}}}
+	 \newcommand{\version}{\emph{\scriptsize$-$Id$-$}}}
+	{\newcommand{\nb}[2]{}
+	 \newcommand{\version}{}}
+\newcommand{\rev}[2]{\nb{Reviewer #1}{red}{#2}}
+\newcommand{\ab}[1]{\nb{Alexandre}{blue}{#1}}
+
+
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
 \allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
@@ -65,7 +103,7 @@
 
 \subsection{Implemented}
 \begin{itemize}
-\item Dead Class: This uni-class pattern looks for all the classes that have not been changed for an X number of versions. Specifically, the uni-class pattern returns all the class versions in which this behavior occurs. For example, if a system has 10 versions and the class A was modified in versions 1, 4, and 10 the uni-class pattern will be true in the following versions whit X=3: 4, 7, 8, and 9.  
+\item Dead Class\ab{Why not Idle class?}: This uni-class pattern looks for all the classes that have not been changed for an X number of versions. Specifically, the uni-class pattern returns all the class versions in which this behavior occurs. For example, if a system has 10 versions and the class A was modified in versions 1, 4, and 10 the uni-class pattern will be true in the following versions whit X=3: 4, 7, 8, and 9.  
 \item Most Complex Classes: This uni-class pattern looks for all the versions of the classes in which a class was in the X\% of the most complex classes of a system. To calculate the complexity of a class the metric Weighted Method Count (WMC) is used.   
 \item Supernova: This uni-class pattern is related with the categorization proposed by Lanza. This milestone identifies those versions of a class in which it grows more than X\% regarding it previous version. 
 \end{itemize}
@@ -76,11 +114,15 @@
 \item Duplicated Code: An index that measure the code duplication in a system increases a X\%  regarding it previous version.
 \item Complex method: A method that is in the X\% of the most complex methods of a system was added.
 \item Fan-In Indicator: A method has a fan-in higher than X.
-\item Dead Method: A method with fan-in=0.
-\item Empty Method: This uni-class pattern looks for all the methods that are defined empty. This may be because they were defined to be implemented in the future 
+\item Dead Method: A method with fan-in=0. \ab{I am not sure that a method with fan-in = 0 is a dead method. Imagine a method that simply return a value?}
+\item \ab{fanoutCalls = average number of calls a method makes. Measure the amount of external calls a class/method does. }. 
+\item Empty Method: This uni-class pattern looks for all the methods that are defined empty. This may be because they were defined to be implemented in the future\ab{In ArgoUML there are large classes with only empty methods}
 \end{itemize}
 
 \section{Multi-Class Patterns}
+\ab{I do not really understand this section and the figure. Pick a simple example. For example, the evolution of the amount of used classes per class. }
+\ab{Things that could be interesting to verify, is there a correlation between an increase of the cyclomatic complexity and the amount of dependent classes? My gut feeling says that a class that has an increase of the complexity cyclomatic has also an increase of the amount of dependent classes.}
+
 \subsection{The pattern algorithm}
 A multi-class pattern is composed by at least two uni-class patterns that occur in the same component. This occurrences can exist in the same or different versions. In order to determine the total number of versions considered to define a multi-class pattern, the pattern algorithm uses a threshold value where \emph{threshold>=0}. 
 Consider the model history of the components shown in Figure \ref{fig:exampleOfPatterns}. In this case the history of 6 components is shown where each of them has 7 versions. Also, in this case are used four uni-class patterns.  
