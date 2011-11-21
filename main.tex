@@ -1,0 +1,285 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%\documentclass[runningheads]{llncs}
+%\documentclass[10pt,letterpaper,twocolumn]{article}
+\documentclass{sig-alternate}
+
+
+% packages
+\usepackage{xspace}
+\usepackage{ifthen}
+\usepackage{amsbsy}
+\usepackage{amssymb}
+\usepackage{balance}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{needspace}
+\usepackage{microtype}
+\usepackage{bold-extra}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+
+
+% constants
+\newcommand{\Title}{Correlation Between Dependencies and Complexity: An Empirical Study}
+\newcommand{\TitleShort}{\Title}
+\newcommand{\Authors}{Santiago Vidal, Alexandre Bergel, Claudia Marcos}
+\newcommand{\AuthorsShort}{S. Vidal, A. Bergel, C. Marcos}
+
+% references
+\usepackage[colorlinks]{hyperref}
+\usepackage[all]{hypcap}
+\setcounter{tocdepth}{2}
+\hypersetup{
+	colorlinks=true,
+	urlcolor=black,
+	linkcolor=black,
+	citecolor=black,
+	plainpages=false,
+	bookmarksopen=true,
+	pdfauthor={\Authors},
+	pdftitle={\Title}}
+
+\def\chapterautorefname{Chapter}
+\def\appendixautorefname{Appendix}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Section}
+\def\figureautorefname{Figure}
+\def\tableautorefname{Table}
+\def\listingautorefname{Listing}
+
+% source code
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{listings}
+\definecolor{source}{gray}{0.9}
+\lstset{
+	language={},
+	% characters
+	tabsize=3,
+	upquote=true,
+	escapechar={!},
+	keepspaces=true,
+	breaklines=true,
+	alsoletter={\#:},
+	breakautoindent=true,
+	columns=fullflexible,
+	showstringspaces=false,
+	basicstyle=\footnotesize\sffamily,
+	% background
+	frame=single,
+    framerule=0pt,
+	backgroundcolor=\color{source},
+	% numbering
+	numbersep=5pt,
+	numberstyle=\tiny,
+	numberfirstline=true,
+	% captioning
+	captionpos=b,
+	% formatting (html)
+	moredelim=[is][\textbf]{<b>}{</b>},
+	moredelim=[is][\textit]{<i>}{</i>},
+	moredelim=[is][\color{red}\uwave]{<u>}{</u>},
+	moredelim=[is][\color{red}\sout]{<del>}{</del>},
+	moredelim=[is][\color{blue}\underline]{<ins>}{</ins>}}
+\newcommand{\ct}{\lstinline[backgroundcolor=\color{white},basicstyle=\footnotesize\ttfamily]}
+\newcommand{\lct}[1]{{\small\tt #1}}
+
+% tikz
+% \usepackage{tikz}
+% \usetikzlibrary{matrix}
+% \usetikzlibrary{arrows}
+% \usetikzlibrary{external}
+% \usetikzlibrary{positioning}
+% \usetikzlibrary{shapes.multipart}
+% 
+% \tikzset{
+% 	every picture/.style={semithick},
+% 	every text node part/.style={align=center}}
+
+% proof-reading
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+\newcommand{\ra}{$\rightarrow$}
+\newcommand{\ugh}[1]{\textcolor{red}{\uwave{#1}}} % please rephrase
+\newcommand{\ins}[1]{\textcolor{blue}{\uline{#1}}} % please insert
+\newcommand{\del}[1]{\textcolor{red}{\sout{#1}}} % please delete
+\newcommand{\chg}[2]{\textcolor{red}{\sout{#1}}{\ra}\textcolor{blue}{\uline{#2}}} % please change
+\newcommand{\chk}[1]{\textcolor{ForestGreen}{#1}} % changed, please check
+
+% comments \nb{label}{color}{text}
+\newboolean{showcomments}
+\setboolean{showcomments}{true}
+\ifthenelse{\boolean{showcomments}}
+	{\newcommand{\nb}[3]{
+		{\colorbox{#2}{\bfseries\sffamily\scriptsize\textcolor{white}{#1}}}
+		{\textcolor{#2}{\sf\small$\blacktriangleright$\textit{#3}$\blacktriangleleft$}}}
+	 \newcommand{\version}{\emph{\scriptsize$-$Id$-$}}}
+	{\newcommand{\nb}[2]{}
+	 \newcommand{\version}{}}
+\newcommand{\rev}[2]{\nb{Reviewer #1}{red}{#2}}
+\newcommand{\ab}[1]{\nb{Alexandre}{blue}{#1}}
+\newcommand{\vp}[1]{\nb{Vanessa}{orange}{#1}}
+
+% graphics: \fig{position}{percentage-width}{filename}{caption}
+\DeclareGraphicsExtensions{.png,.jpg,.pdf,.eps,.gif}
+\graphicspath{{figures/}}
+\newcommand{\fig}[4]{
+	\begin{figure}[#1]
+		\centering
+		\includegraphics[width=#2\textwidth]{#3}
+		\caption{\label{fig:#3}#4}
+	\end{figure}}
+
+\newcommand{\largefig}[4]{
+	\begin{figure*}[#1]
+		\centering
+		\includegraphics[width=#2\textwidth]{#3}
+		\caption{\label{fig:#3}#4}
+	\end{figure*}}
+	
+\newcommand{\wrapfig}[5]{	
+\begin{wrapfigure}{#1}{#2\textwidth}
+  \begin{center}
+    \includegraphics[width=#3\textwidth]{#4}
+  \end{center}
+  \caption{\label{fig:#4}#5}
+\end{wrapfigure}}
+
+% abbreviations
+\newcommand{\ie}{\emph{i.e.,}\xspace}
+\newcommand{\eg}{\emph{e.g.,}\xspace}
+\newcommand{\etc}{\emph{etc.}\xspace}
+\newcommand{\etal}{\emph{et al.}\xspace}
+
+% lists
+\newenvironment{bullets}[0]
+	{\begin{itemize}}
+	{\end{itemize}}
+
+\newcommand{\seclabel}[1]{\label{sec:#1}}
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\figlabel}[1]{\label{fig:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\tablabel}[1]{\label{tag:#1}}
+\newcommand{\tabref}[1]{Table~\ref{fig:#1}}
+
+
+%Specialized macros
+\pagenumbering{arabic}
+
+\begin{document}
+
+\title{\Title}
+%\titlerunning{\TitleShort}
+
+\author{\Authors\\[3mm]
+Department of Computer Science (DCC)\\ University of Chile, Santiago, Chile\\[1 ex]
+} 
+%\authorrunning{\AuthorsShort}
+
+\maketitle
+
+%\emph{This paper makes use of colored figures. Though colors are not mandatory for full understanding, we recommend  the use of a colored printout.}
+
+\begin{abstract}
+%	What's the problem.
+
+
+%	Why is the problem a problem?
+
+%	What's the surprising idea?
+
+%	What's the consequence?
+We are able to simplify X software by decreasing the dependencies.
+
+\end{abstract}
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Introduction}\seclabel{introduction}
+
+
+
+The research questions addressed in this paper are:
+\begin{itemize}
+\item[A -] \emph{How closely the number of external dependencies is related to the code complexity?}
+\item[B -] \emph{Can the number of external dependencies be used as a proxy for measuring the code complexity?}
+\item[C -] \emph{Can the complexity system be reduced by reducing the dependencies?}
+\end{itemize}
+
+We provide a number of contributions based on a large empirical study:
+\begin{itemize}
+\item complexity metrics are strongly correlated with dependencies: more complex a class is, more dependencies to other classes the class has
+\end{itemize}
+
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Correlation between code complexity and dependencies}
+
+%=========
+\subsection{Code complexity}
+There is a large number of metrics to measure the source code complexity.
+The complexity metrics traditionally found are: LOC, Cyclomatic Complexity (1 \& 2 \& 3), NOM ...
+
+%=========
+\subsection{Source code element dependencies}
+
+Between methods, classes and packages (namespaces)
+
+%=========
+\subsection{Correlation}
+
+\begin{tabular}{|c|c|c|c|}\hline
+dep - metric  & LOC & McCabe & Halstead\\\hline
+m$<->$m	&	& & \\\hline
+c$<->$c	&	& & \\\hline
+p$<->$p	&	& & \\\hline
+m$<->$c	&	& & \\\hline
+m$<->$p	&	& & \\\hline
+c$<->$m	&	& & \\\hline
+c$<->$p	&	& & \\\hline
+p$<->$m	&	& & \\\hline
+p$<->$c	&	& & \\\hline
+\end{tabular}
+
+
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Reducing the complexity by removing the dependencies}
+
+\subsection{Dependencies that are easy to remove}
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Related Work}
+
+ICSE: cyclomatic complexity and code indentation
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Conclusion}\seclabel{conclusion}
+
+%\paragraph{Acknowledments} We thanks 
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+%{\small
+\bibliographystyle{plain}
+\bibliography{scg}
+%}
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\appendix
+
+\section{Analyzed software}
+
+\begin{table}
+\begin{tabular}{|l|l|l|}\hline
+\textbf{name} & \textbf{language} & \textbf{LOC}\\
+Mondrian\\
+HealthReportProducer\\
+Spy\\
+\end{tabular}
+\caption{List of analyzed software}
+\end{table}
+
+\end{document}
