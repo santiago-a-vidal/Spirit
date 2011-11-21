@@ -159,6 +159,7 @@
 
 \newcommand{\seclabel}[1]{\label{sec:#1}}
 \newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\appref}[1]{Appendix~\ref{sec:#1}}
 \newcommand{\figlabel}[1]{\label{fig:#1}}
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}}
 \newcommand{\tablabel}[1]{\label{tag:#1}}
@@ -214,6 +215,45 @@ We provide a number of contributions based on a large empirical study:
 
 
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Methodology}\seclabel{methodology}
+
+Our methodology can be summarized as follows:
+
+\begin{enumerate}
+\item Choose a list of relevant software programs. From squeaksource.com
+\item Process each version of these programs in the Moose software analysis platform. 
+\item Establish the correlation between each metric and the statistical moment for each dependency relation we considered.
+\item Reduce the amount of dependencies for a representative portion of source code by means of manual refactorings.
+\item Measure the evolution of the complexity metrics
+\end{enumerate}
+
+%=========
+\subsection{Project Repositories}
+
+The list of projects and their size is given in \appref{listOfSoftware}
+From squeaksource.com
+
+
+%=========
+\subsection{Process each program version}
+
+Thanks to its language independent metamodel, Moose is able to analyzes software
+
+The complete software source code is an instance of the metamodel.
+
+Run the complexity metrics for each version.
+
+%=========
+\subsection{Correlation between metrics and statistical moment}
+
+%=========
+\subsection{Reducing the amount of dependencies}
+
+%=========
+\subsection{Measuring the evolution of the complexity}
+
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Correlation between code complexity and dependencies}
 
 %=========
@@ -221,6 +261,11 @@ We provide a number of contributions based on a large empirical study:
 There is a large number of metrics to measure the source code complexity.
 The complexity metrics traditionally found are: LOC, Cyclomatic Complexity (1 \& 2 \& 3), NOM ...
 
+McCabe's Cyclomatic Complexity (MCC)~\cite{McCa76a} counts branching and control flow in a program.
+Halstead's complexity metric measure the number of unique operators and operands. 
+
+
+To check: \url{http://yunus.hacettepe.edu.tr/~sencer/complexity.html}
 %=========
 \subsection{Source code element dependencies}
 
@@ -252,7 +297,9 @@ p$<->$c	&	& & \\\hline
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Related Work}
 
-ICSE: cyclomatic complexity and code indentation
+Abram Hindle \etal~\cite{Hind08a} have shown that the code indentation is a reliable proxy for measuring the cyclomatic complexity
+
+Dependency Structural Matrix~\cite{Sang05a}
 
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Conclusion}\seclabel{conclusion}
@@ -270,7 +317,7 @@ ICSE: cyclomatic complexity and code indentation
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \appendix
 
-\section{Analyzed software}
+\section{Analyzed software} \seclabel{listOfSoftware}
 
 \begin{table}
 \begin{tabular}{|l|l|l|}\hline
@@ -278,6 +325,10 @@ ICSE: cyclomatic complexity and code indentation
 Mondrian\\
 HealthReportProducer\\
 Spy\\
+Roassal\\
+Versionner\\
+Merlin\\
+Tode\\
 \end{tabular}
 \caption{List of analyzed software}
 \end{table}
