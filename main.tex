@@ -247,6 +247,13 @@ Run the complexity metrics for each version.
 %=========
 \subsection{Correlation between metrics and statistical moment}
 
+The correlation is calculated to different granularity elements (methods, classes, and packages) using complexity and dependence metrics. The metrics used in order to calculate the complexity of a system are:
+\begin{itemize}%Contar para cada uno que se calcula para metodos, clases y paquetes
+\item Cyclomatic complexity:
+\item Lines of code:
+\item Number of invocations: Length x (Fan-in x Fan-out)$^{2}$
+\end{itemize}
+
 %=========
 \subsection{Reducing the amount of dependencies}
 
@@ -256,6 +263,53 @@ Run the complexity metrics for each version.
 
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Correlation between code complexity and dependencies}
+
+
+\begin{table*}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & LOC & CC & FanInFanOut/LOC & FanInFanOut/CC\tabularnewline
+\hline 
+\hline 
+Dependencie  & 0.68 & 0.91 & 0.70 & 0.60\tabularnewline
+\hline 
+DependencieWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Dependencie(Invocations) & 0.67 & 0.85 & 0.72 & 0.71\tabularnewline
+\hline 
+DependencieWithoutLoops(Invocations) & 0.67 & 0.85 & 0.71 & 0.71\tabularnewline
+\hline 
+DependencieClass & 0.006 & 0.50 & 0.30 & 0.34\tabularnewline
+\hline 
+DependencieClassWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+DependencieClass (Invocations) & 0.005 & 0.48 & 0.35 & 0.40\tabularnewline
+\hline 
+DependencieClassWithoutLoops (Invocations) & 0.02 & 0.61 & 0.34 & 0.40\tabularnewline
+\hline 
+DependenciePackage & 0.27 & 0.90 & 0.35 & 0.41\tabularnewline
+\hline 
+DependenciePackageWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+DependenciePackage (Invocations) & 0.25 & 0.90 & 0.34 & 0.40\tabularnewline
+\hline 
+DependenciePackageWithoutLoops (Invocations) & 0.32 & 0.90 & 0.35 & 0.41\tabularnewline
+\hline 
+DependencieNameSpace & -0.33 & 1 & -0.5 & 2,78E-01\tabularnewline
+\hline 
+DependencieNameSpaceWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+DependencieNameSpace (Invocations) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+DependencieNameSpaceWithoutLoops (Invocations) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+\end{tabular}
+
+\caption{Methods results}
+
+
+\end{table*}
+
 
 %=========
 \subsection{Code complexity}
