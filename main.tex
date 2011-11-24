@@ -218,7 +218,7 @@ We provide a number of contributions based on a large empirical study:
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Methodology}\seclabel{methodology}
 
-Our methodology can be summarized as follows:
+Our methodology is summarized as follows:
 
 \begin{enumerate}
 \item Choose a list of relevant software programs. From squeaksource.com
@@ -247,12 +247,7 @@ Run the complexity metrics for each version.
 %=========
 \subsection{Correlation between metrics and statistical moment}
 
-The correlation is calculated to different granularity elements (methods, classes, and packages) using complexity and dependence metrics. The metrics used in order to calculate the complexity of a system are:
-\begin{itemize}%Contar para cada uno que se calcula para metodos, clases y paquetes
-\item Cyclomatic complexity:
-\item Lines of code:
-\item Number of invocations: Length x (Fan-in x Fan-out)$^{2}$
-\end{itemize}
+
 
 %=========
 \subsection{Reducing the amount of dependencies}
@@ -265,50 +260,8 @@ The correlation is calculated to different granularity elements (methods, classe
 \section{Correlation between code complexity and dependencies}
 
 
-\begin{table*}
-\begin{tabular}{|c|c|c|c|c|}
-\hline 
- & LOC & CC & FanInFanOut/LOC & FanInFanOut/CC\tabularnewline
-\hline 
-\hline 
-Dependencie  & 0.68 & 0.91 & 0.70 & 0.60\tabularnewline
-\hline 
-DependencieWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-Dependencie(Invocations) & 0.67 & 0.85 & 0.72 & 0.71\tabularnewline
-\hline 
-DependencieWithoutLoops(Invocations) & 0.67 & 0.85 & 0.71 & 0.71\tabularnewline
-\hline 
-DependencieClass & 0.006 & 0.50 & 0.30 & 0.34\tabularnewline
-\hline 
-DependencieClassWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-DependencieClass (Invocations) & 0.005 & 0.48 & 0.35 & 0.40\tabularnewline
-\hline 
-DependencieClassWithoutLoops (Invocations) & 0.02 & 0.61 & 0.34 & 0.40\tabularnewline
-\hline 
-DependenciePackage & 0.27 & 0.90 & 0.35 & 0.41\tabularnewline
-\hline 
-DependenciePackageWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-DependenciePackage (Invocations) & 0.25 & 0.90 & 0.34 & 0.40\tabularnewline
-\hline 
-DependenciePackageWithoutLoops (Invocations) & 0.32 & 0.90 & 0.35 & 0.41\tabularnewline
-\hline 
-DependencieNameSpace & -0.33 & 1 & -0.5 & 2,78E-01\tabularnewline
-\hline 
-DependencieNameSpaceWithoutLoops & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-DependencieNameSpace (Invocations) & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-DependencieNameSpaceWithoutLoops (Invocations) & 0 & 0 & 0 & 0\tabularnewline
-\hline 
-\end{tabular}
-
-\caption{Methods results}
 
 
-\end{table*}
 
 
 %=========
@@ -321,10 +274,76 @@ Halstead's complexity metric measure the number of unique operators and operands
 
 
 To check: \url{http://yunus.hacettepe.edu.tr/~sencer/complexity.html}
+
+
+The correlation is calculated to different granularity elements (methods, classes, and packages) using complexity and dependence metrics. The metrics used in order to calculate the complexity of a system are:
+\begin{itemize}%Contar para cada uno que se calcula para metodos, clases y paquetes
+\item Cyclomatic complexity: The cyclomatic complexity of a method is the number of decision points in the control flow graph of the method. The decision points are declarations such as if, for, while, try/catch, etc. The number of decision points in a statement can vary depending, for example, the complexity of Boolean expressions. As this metric is calculate to a method, in order to calculate the complexity of a class we sum the cyclomatic complexity of all the methods of the class. A similar approach is followed to calculate the complexity of a package. 
+\item Lines of code: the total number of lines of codes is an indicator to measure how complex a system is. In this case we measure the lines of codes of a method, a class, or a package (i.e. the sum of the lines of code of the classes that it contains).
+\item Number of invocations: other metrics that are helpful to determine the complexity of a system are fan-in and fan-out. The complexity metric is calculated as: Length x (Fan-in x Fan-out)$^{2}$ where length is a metric such as lines of code or cyclomatic complexity. In the case of the classes and the packages the fan-in and fan-out metrics are calculated as incoming and outgoing invocations respectively.
+\end{itemize}
 %=========
 \subsection{Source code element dependencies}
 
 Between methods, classes and packages (namespaces)
+
+In order to calculate the dependencies of an entity (method, class or package) several strategies can be followed:
+\begin{itemize}
+\item Outgoing invocations: this kind of invocation computes all the packages, classes and methods referenced by an entity. 
+\item All dependencies: this kind of invocation comprises the outgoing invocations and add the static dependences such as accesses, references and inheritances.
+\end{itemize}
+An important consideration is that during the calculation of these metrics those dependencies that loop back to its receiver can be avoided. In this way we can filter only those dependencies with other entities (methods, classes or packages).
+
+Also, the dependencies of an entity can be refined according the scope of them. Specifically, we use scope for methods, classes and packages. For example, if the outgoing invocations of the class \emph{A} are calculated and refined using the package scope the dependencies obtained will be packages which contain classes referenced by the class \emph{A}.
+
+%poner un pequeño ejemplo para mostrar las diferencias entre los distintos tipos de dependencias
+
+\begin{table*}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & LOC & CC & FanInFanOut/LOC & FanInFanOut/CC\tabularnewline
+\hline 
+\hline 
+All dependencies  & 0.68 & 0.91 & 0.70 & 0.60\tabularnewline
+\hline 
+All dependencies (WL) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Outgoing invocations & 0.67 & 0.85 & 0.72 & 0.71\tabularnewline
+\hline 
+Outgoing invocations (WL) & 0.67 & 0.85 & 0.71 & 0.71\tabularnewline
+\hline 
+All dependencies (ACS) & 0.006 & 0.50 & 0.30 & 0.34\tabularnewline
+\hline 
+All dependencies (ACS WL) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Outgoing invocations (ACS) & 0.005 & 0.48 & 0.35 & 0.40\tabularnewline
+\hline 
+Outgoing invocations (ACS WL) & 0.02 & 0.61 & 0.34 & 0.40\tabularnewline
+\hline 
+All dependencies (APS) & 0.27 & 0.90 & 0.35 & 0.41\tabularnewline
+\hline 
+All dependencies (APS WL) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Outgoing invocations (APS) & 0.25 & 0.90 & 0.34 & 0.40\tabularnewline
+\hline 
+Outgoing invocations (APS WL) & 0.32 & 0.90 & 0.35 & 0.41\tabularnewline
+\hline 
+All dependencies (ANS) & -0.33 & 1 & -0.5 & 2,78E-01\tabularnewline
+\hline 
+All dependencies (ANS WL) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Outgoing invocations (ANS) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+Outgoing invocations (ANS WL) & 0 & 0 & 0 & 0\tabularnewline
+\hline 
+\end{tabular}
+
+\medskip{}
+WL= without loops; ACS= at class scope; APS= at package scope; ANS= at namespace scope
+\caption{Methods results}
+
+
+\end{table*}
 
 %=========
 \subsection{Correlation}
