@@ -247,6 +247,22 @@ Run the complexity metrics for each version.
 %=========
 \subsection{Correlation between metrics and statistical moment}
 
+"Do we need distribution? (Pareto distribution, Poisson distribution, Binomial distribution, exponential distribution)
+Comparison of distribution we use the Kologormov Smirnow test. This is a non-parametrics test that can handle data that has troublesome non=normal, non-Gaussian distribution like the exponential distribution.
+
+If one measurement is similar or related to another measurement, if it can replace the other, we need to show there is a relationship between them. The easiest way to show a relationshipp between two variable is to see how well they correlate. To determine correlations between variables we use two kinds of correlations: linear correlation and rank-based correlation. the difference is great: a linear correlation attempts to show the strength of a linear relationship between two or more variables. A rank-based correlation does not rely on a linear relationship, it orders the variables, ranking them from smallest to largest and then correlates those ranks with the rank of the other variable. 
+Linear correlation is the PearsonCorrelation Coefficient. 
+
+The rank based correlation is the Spearman-Rho Correlation Coefficient and the Kendall-Tau Correlation Coefficient. 
+
+Least Squares Linear Regression to produce a best fit of coefficients of our statistical moments
+"
+
+
+
+
+
+
 %=========
 \subsection{Reducing the amount of dependencies}
 
@@ -294,6 +310,11 @@ p$<->$c	&	& & \\\hline
 \section{Reducing the complexity by removing the dependencies}
 
 \subsection{Dependencies that are easy to remove}
+
+%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\section{Validity Threats}
+
+
 
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Related Work}
