@@ -289,8 +289,8 @@ Between methods, classes and packages (namespaces)
 
 In order to calculate the dependencies of an entity (method, class or package) several strategies can be followed:
 \begin{itemize}
-\item Outgoing invocations: this kind of invocation computes all the packages, classes and methods referenced by an entity. 
-\item All dependencies: this kind of invocation comprises the outgoing invocations and add the static dependences such as accesses, references and inheritances.
+\item Outgoing invocations (OI): this kind of invocation computes all the packages, classes and methods referenced by an entity. 
+\item All dependencies (AD): this kind of invocation comprises the outgoing invocations and add the static dependences such as accesses, references and inheritances.
 \end{itemize}
 An important consideration is that during the calculation of these metrics those dependencies that loop back to its receiver can be avoided. In this way we can filter only those dependencies with other entities (methods, classes or packages).
 
@@ -343,6 +343,7 @@ WL= without loops; ACS= at class scope; APS= at package scope; ANS= at namespace
 \caption{Methods results}
 
 
+
 \end{table*}
 
 %=========
@@ -362,14 +363,22 @@ p$<->$c	&	& & \\\hline
 \end{tabular}
 
 
+Four case studies were conducted in which several version of Java an Smalltalk systems were analyzed. Specifically, we analyze Mondrian\footnote{\url{http://www.moosetechnology.org/tools/mondrian}}, Versionner\footnote{\url{http://www.squeaksource.com/Versionner}}, Vuze\footnote{\url{http://www.vuze.com/}}, and JFreeChart\footnote{\url{www.jfree.org/jfreechart}}. For each version of these systems several metrics of complexity and dependence were calculated as mentioned above. Both kind of measurements were calculated for packages, classes, and methods. For each one of these measurements the results of all the versions of a system were study conducting a regression analysis.
 
-%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\section{Reducing the complexity by removing the dependencies}
+After conducting the case studies we found evidence of the existence of a correlation between dependencies and complexity measurements.
+Regarding the classes, a strong correlation was found between AD and LOC, AD and WMC, OI and LOC, and OI and WMC (\figref{Correlation-comparison}). The fact that no correlation was identified when the dependencies are calculated only to a subset of entities (such as at class scope or at package scope), indicates that the changes in the dependences that affect the complexity of a system are global instead of local. That is, if there is the complexity is  increased that is because of an increment of all the dependencies.
+Similar results were obtained for packages and methods. In the case of packages interesting correlations were found between AD and LOC, AD and CC, OI and LOC, and OI and CC. In regard to the methods, the correlations were found between  AD and LOC, and OI and LOC. 
 
-\subsection{Dependencies that are easy to remove}
 
-%: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-\section{Validity Threats}
+
+\begin{figure*}
+\includegraphics[bb=52bp 300bp 540bp 500bp,clip]{ClassesMetricsComparison}
+
+\caption{Correlation comparison for classes measurements.\figlabel{Correlation-comparison}}
+
+
+\end{figure*}
+
 
 
 
