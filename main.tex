@@ -288,7 +288,7 @@ Halstead's complexity metric measure the number of unique operators and operands
 To check: \url{http://yunus.hacettepe.edu.tr/~sencer/complexity.html}
 
 
-The correlation is calculated to different granularity elements (methods, classes, and packages) using complexity and dependence metrics. The metrics used in order to calculate the complexity of a system are:
+The correlation is calculated to different granularity elements (methods, classes, and packages) using complexity and dependence metrics. The metrics used in order to determine the complexity of a system are:
 \begin{itemize}%Contar para cada uno que se calcula para metodos, clases y paquetes
 \item Cyclomatic complexity: The cyclomatic complexity of a method is the number of decision points in the control flow graph of the method. The decision points are declarations such as if, for, while, try/catch, etc. The number of decision points in a statement can vary depending, for example, the complexity of Boolean expressions. As this metric is calculate to a method, in order to calculate the complexity of a class we sum the cyclomatic complexity of all the methods of the class. A similar approach is followed to calculate the complexity of a package. 
 \item Lines of code: the total number of lines of codes is an indicator to measure how complex a system is. In this case we measure the lines of codes of a method, a class, or a package (i.e. the sum of the lines of code of the classes that it contains).
