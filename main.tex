@@ -185,11 +185,12 @@ Department of Computer Science (DCC)\\ University of Chile, Santiago, Chile\\[1 
 
 \begin{abstract}
 %	What's the problem.
-A number of metrics have been proposed to measure the source code complexity. 
-
+The amount of external dependencies is commonly considered as a source of complexity.  More a component has external dependencies, more complex it becomes. However, this has never been empirically verified. In addition, it is not clear which kind of dependencies is more related to the complexity.
 %	Why is the problem a problem?
 
+
 %	What's the surprising idea?
+
 We empirically show that the complexity metrics of a software element are strongly correlated with the external dependencies the element has.
 
 %	What's the consequence?
@@ -200,7 +201,20 @@ We are able to simplify X software by decreasing the dependencies.
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \section{Introduction}\seclabel{introduction}
 
-~\cite{Sang05a}
+The quality of a software source code is usually perceived as the cost to change it~\cite{}.
+
+Software dependencies is often considered as a primary source of complexity. More a component has dependencies on its executing environment or other components, more complex the component is~\cite{Sang05a}. 
+
+Relating some metrics to some quality attributes has received attention from the community.
+
+Briand \etal~\cite{Bria00a} investigated the relationship between design measurements in object-oriented systems and the overall quality of the developed software. The quality is measured by fault-proneness. 
+
+Relation between design metrics and productivity or effort ~\cite{Chida98a}
+
+Relation between design metrics and the amount of maintenance modifications(?)~\cite{Li93a}
+
+
+
 
 ~\cite{Baxt06a}
 
@@ -211,7 +225,7 @@ The research questions addressed in this paper are:
 \begin{itemize}
 \item[A -] \emph{How closely the number of external dependencies is related to the code complexity?}
 \item[B -] \emph{Can the number of external dependencies be used as a proxy for measuring the code complexity?}
-\item[C -] \emph{Can the complexity system be reduced by reducing the dependencies?}
+%\item[C -] \emph{Can the complexity system be reduced by reducing the dependencies?}
 \end{itemize}
 
 We provide a number of contributions based on a large empirical study:
@@ -229,8 +243,9 @@ Our methodology is summarized as follows:
 \item Choose a list of relevant software programs. From squeaksource.com
 \item Process each version of these programs in the Moose software analysis platform. 
 \item Establish the correlation between each metric and the statistical moment for each dependency relation we considered.
-\item Reduce the amount of dependencies for a representative portion of source code by means of manual refactorings.
-\item Measure the evolution of the complexity metrics
+\item Identify the minimum amount of kind of dependencies to have a maximum fit to a predictive models.
+%\item Reduce the amount of dependencies for a representative portion of source code by means of manual refactorings.
+%\item Measure the evolution of the complexity metrics
 \end{enumerate}
 
 %=========
@@ -259,13 +274,6 @@ Run the complexity metrics for each version.
 %=========
 \subsection{Correlation between metrics and statistical moment}
 
-
-
-%=========
-\subsection{Reducing the amount of dependencies}
-
-%=========
-\subsection{Measuring the evolution of the complexity}
 
 
 %: % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
