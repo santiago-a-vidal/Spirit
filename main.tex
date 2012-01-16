@@ -375,13 +375,53 @@ p$<->$c	&	& & \\\hline
 \end{tabular}
 
 
-Four case studies were conducted in which several version of Java an Smalltalk systems were analyzed. Specifically, we analyze Mondrian\footnote{\url{http://www.moosetechnology.org/tools/mondrian}}, Versionner\footnote{\url{http://www.squeaksource.com/Versionner}}, Vuze\footnote{\url{http://www.vuze.com/}}, and JFreeChart\footnote{\url{www.jfree.org/jfreechart}}. For each version of these systems several metrics of complexity and dependence were calculated as mentioned above. Both kind of measurements were calculated for packages, classes, and methods. For each one of these measurements the results of all the versions of a system were study conducting a regression analysis.
+Four case studies were conducted in which several version of Java an Smalltalk systems were analyzed. Specifically, we analyze Mondrian\footnote{\url{http://www.moosetechnology.org/tools/mondrian}}, Versionner\footnote{\url{http://www.squeaksource.com/Versionner}}, Vuze\footnote{\url{http://www.vuze.com/}}, and JFreeChart\footnote{\url{www.jfree.org/jfreechart}}. For each version of these systems several metrics of complexity and dependence were calculated as mentioned above. Both kind of measurements were calculated for packages, classes, and methods. For each one of these measurements the results of all the versions of a system were studied conducting a regression analysis.
 
 After conducting the case studies we found evidence of the existence of a correlation between dependencies and complexity measurements.
-Regarding the classes, a strong correlation was found between AD and LOC, AD and WMC, OI and LOC, and OI and WMC (\figref{Correlation-comparison}). The fact that no correlation was identified when the dependencies are calculated only to a subset of entities (such as at class scope or at package scope), indicates that the changes in the dependences that affect the complexity of a system are global instead of local. That is, if there is the complexity is  increased that is because of an increment of all the dependencies.
-Similar results were obtained for packages and methods. In the case of packages interesting correlations were found between AD and LOC, AD and CC, OI and LOC, and OI and CC. In regard to the methods, the correlations were found between  AD and LOC, and OI and LOC. 
+Regarding the classes, a strong correlation was found between AD and LOC, AD and WMC, OI and LOC, and OI and WMC (\figref{Correlation-comparison}). The fact that no correlation was identified when the dependencies are calculated only to a subset of entities (such as at class scope or at package scope), indicates that the changes in the dependences that affect the complexity of a system are global instead of local. That is, if there is the complexity is increased that is because of an increment of all the dependencies.
+Similar results were obtained for packages and methods. In the case of packages interesting correlations were found between AD and LOC (\figref{Regression-analysis-packages}), AD and CC, OI and LOC, and OI and CC (Table \ref{tab:correlations-Packages}). In regard to the methods, the correlations were found between AD and LOC, and OI and LOC (Table \ref{tab:correlations-Methods}). As can be seen, no correlation was found in the Mondrian case study for Methods. This was because some extreme values were obtained where some methods had low values ​​of LOC (~2) and high values of AD or OI (>500). These kind of values are usually related wit getter methods and several similar cases were found in Mondrian. Conversely, some methods had high values of LOC and low values of dependencies. 
+
+%As can be seen PONER QUE SE PUEDE INFERIR DE ESTOS RESULTADOS
 
 
+\begin{table}
+\begin{centering}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & Mondrian & Versionner & Vuze & JFreeChart\tabularnewline
+\hline 
+\hline 
+AD-LOC & 0,9599 & 0,9632 & 0,9479 & 0,8261\tabularnewline
+\hline 
+AD-CC & 0,52 & 0,7671 & 0,903 & 0,7233\tabularnewline
+\hline 
+OI-LOC & 0,959 & 0,9678 & 0,9284 & 0,6933\tabularnewline
+\hline 
+OI-CC & 0,4986 & 0,7658 & 0,8388 & 0,565\tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+
+\caption{Strongest correlations for package measurements.\label{tab:correlations-Packages}}
+\end{table}
+
+
+\begin{table}
+\begin{centering}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & Mondrian & Versionner & Vuze & JFreeChart\tabularnewline
+\hline 
+\hline 
+AD-LOC & 0,0009 & 0,7006 & 0,4705 & 0,6326\tabularnewline
+\hline 
+OI-LOC & 0,0002 & 0,7289 & 0,5693 & 0,589\tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+
+\caption{Strongest correlations for methods measurements.\label{tab:correlations-Methods}}
+\end{table}
 
 \begin{figure*}
 \includegraphics[bb=52bp 300bp 540bp 500bp,clip]{ClassesMetricsComparison}
@@ -390,7 +430,13 @@ Similar results were obtained for packages and methods. In the case of packages 
 
 
 \end{figure*}
+\begin{figure*}
+\includegraphics[bb=50bp 505bp 505bp 785bp,clip]{RegressionAnalysisPackages}
 
+\caption{Regression analysis for packages.\figlabel{Regression-analysis-packages}}
+
+
+\end{figure*}
 
 
 
